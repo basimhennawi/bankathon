@@ -15,17 +15,10 @@ export default ({ config, db }) => resource({
     callback(err, account);
   },
 
-  /** GET / - List all accounts */
-  index({ params }, res) {
+  /** POST / - List all accounts */
+  create({ body }, res) {
     accounts.all()
       .then((accounts) => res.json(accounts));
-  },
-
-  /** POST / - Create a new entity */
-  create({ body }, res) {
-    body.id = accounts.length.toString(36);
-    accounts.push(body);
-    res.json(body);
   },
 
   /** GET /:id - Return a given entity */

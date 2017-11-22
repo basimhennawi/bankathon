@@ -19,6 +19,7 @@ const accounts = (accts) => {
         balanceDate: acc.updated_at,
         currencyCode: acc.currency,
       },
+      currencyCode: acc.currency,
       /**
       /* HARDCODED stuff
       */
@@ -27,7 +28,6 @@ const accounts = (accts) => {
       allowedSegTypes: [],
       bankName: 'Coinbase',
       countryCode: 'XYZ',
-      currencyCode: 'ABC',
       fromUPD: false,
       holderName: 'Dennis Lutter',
       isPortfolio: false,
