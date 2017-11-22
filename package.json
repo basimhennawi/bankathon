@@ -39,6 +39,7 @@
   "homepage": "https://github.com/basimhennawi/bankathon#readme",
   "dependencies": {
     "body-parser": "^1.13.3",
+    "babel-cli": "^6.26.0",
     "coinbase": "^2.0.6",
     "compression": "^1.5.2",
     "cors": "^2.7.1",
@@ -50,7 +51,6 @@
     "resource-router-middleware": "^0.6.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",
