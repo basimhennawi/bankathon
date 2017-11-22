@@ -4,7 +4,10 @@ import accounts from '../repositories/accounts';
 const response = (res, data) => {
   res.json({
     status: 200,
-    data,
+    data: {
+      ...data,
+      credential: '38508b40-e349-4952-878e-4ccfebfc1cfe' // Hardcode credential
+    },
     traceId: '245bcbd7b3cad60a13e2479527f4ebad' // Hardcode traceID
   })
 }
