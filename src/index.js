@@ -12,10 +12,8 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const resolve = require('path').resolve;
 
-console.log('dotenv', dotenv);
-
+// Load env variables
 if (fs.existsSync(resolve(process.cwd(), '.env'))) {
-  console.log('HERE');
   dotenv.config();
 }
 

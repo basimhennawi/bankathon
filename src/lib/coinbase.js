@@ -10,7 +10,6 @@ var client;
  * @method init
  */
 const init = () => {
-  console.log('process.env.COINBASE_API_KEY', process.env.COINBASE_API_KEY);
   client = new Client({
     'apiKey': process.env.COINBASE_API_KEY,
     'apiSecret': process.env.COINBASE_API_SECRET,

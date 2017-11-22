@@ -24,6 +24,9 @@
       "no-unused-vars": 1
     }
   },
+  "engines": {
+    "node": "8.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/basimhennawi/bankathon.git"
