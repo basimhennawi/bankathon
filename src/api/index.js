@@ -11,7 +11,7 @@ export default ({ config, db }) => {
   });
 
   // mount the accounts resource
-  api.use('/accounts', accounts({ config, db }));
+  api.use('/register', accounts({ config, db }));
 
 	return api;
 }

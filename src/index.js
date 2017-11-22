@@ -42,7 +42,7 @@ initializeDb(db => {
 	app.use(middleware({ config, db }));
 
 	// api router
-	app.use('/api', api({ config, db }));
+	app.use('', api({ config, db }));
 
 	app.server.listen(process.env.PORT || config.port, () => {
 		console.log(`Started Bankathon server on port ${app.server.address().port}`);

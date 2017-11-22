@@ -4,7 +4,7 @@ import accounts from '../repositories/accounts';
 export default ({ config, db }) => resource({
 
   /** Property name to store preloaded entity on `request`. */
-  id : 'account',
+  id : 'register',
 
   /** For requests with an `id`, you can auto-load the entity.
    *  Errors terminate the request, success sets `req[id] = data`.
