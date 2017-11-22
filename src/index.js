@@ -7,6 +7,20 @@ import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
 import config from './config.json';
+import { init as initCoinbase } from './lib/coinbase';
+const dotenv = require('dotenv');
+const fs = require('fs');
+const resolve = require('path').resolve;
+
+console.log('dotenv', dotenv);
+
+if (fs.existsSync(resolve(process.cwd(), '.env'))) {
+  console.log('HERE');
+  dotenv.config();
+}
+
+// Initialize coinbase object
+initCoinbase();
 
 let app = express();
 app.server = http.createServer(app);

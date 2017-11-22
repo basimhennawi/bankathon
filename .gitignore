@@ -2,6 +2,6 @@
 /logs
 /npm-debug.log
 /node_modules
-/src/config.json
 /src/samples
 .DS_Store
+.env

@@ -1,15 +1,21 @@
-'use strict';
+// 'use strict';
 
 const coinbase = require('coinbase');
 const Client = coinbase.Client;
 
-const config = require('../config')
 const map = require('../map');
+var client;
 
-const client = new Client({
-  'apiKey': config.apiKey,
-  'apiSecret': config.apiSecret
-});
+/** Initialize client object 
+ * @method init
+ */
+const init = () => {
+  console.log('process.env.COINBASE_API_KEY', process.env.COINBASE_API_KEY);
+  client = new Client({
+    'apiKey': process.env.COINBASE_API_KEY,
+    'apiSecret': process.env.COINBASE_API_SECRET,
+  });
+};
 
 /**
  * Listing available accounts
@@ -29,5 +35,6 @@ const getAccounts = () => {
 };
 
 module.exports = {
+  init,
   getAccounts,
 };
