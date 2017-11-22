@@ -5,7 +5,7 @@ const { getAcctType } = require('./helpers');
  * @method accounts
  * @return {Promise} - Array of BAPI-valid-schemed accounts
  */
-const accounts = (accts) => {
+const accounts = (accts, user) => {
   var mappedAccounts = [];
 
   accts.forEach(acc => {
@@ -23,13 +23,13 @@ const accounts = (accts) => {
       /**
       /* HARDCODED stuff
       */
-      bankCode: 'COINBASE',
+      bankCode: '123454321',
       icon: 'SOME ICON',
       allowedSegTypes: [],
       bankName: 'Coinbase',
       countryCode: 'XYZ',
       fromUPD: false,
-      holderName: 'Dennis Lutter',
+      holderName: user ? user.name : '',
       isPortfolio: false,
       onlyAllowedSegTypes: false,
     });

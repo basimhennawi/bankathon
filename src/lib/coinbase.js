@@ -1,5 +1,3 @@
-// 'use strict';
-
 const coinbase = require('coinbase');
 const Client = coinbase.Client;
 
@@ -9,10 +7,29 @@ var client;
 /** Initialize client object 
  * @method init
  */
-const init = () => {
+const init = (key, secret) => {
   client = new Client({
-    'apiKey': process.env.COINBASE_API_KEY,
-    'apiSecret': process.env.COINBASE_API_SECRET,
+    'apiKey': key || process.env.COINBASE_API_KEY,
+    'apiSecret': secret || process.env.COINBASE_API_SECRET,
+  });
+};
+
+/**
+ * Ger
+ * @method getCurrentUser
+ * @return {Promise} - User data
+ */
+const getCurrentUser = ({ key, secret }) => {
+  if (key && secret) init(key, secret);
+
+  return new Promise((resolve, reject) => {
+    client.getCurrentUser((err, user) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(user);
+      }
+    });
   });
 };
 
@@ -21,19 +38,25 @@ const init = () => {
  * @method getAccounts
  * @return {Promise} - Array of accounts
  */
-const getAccounts = () => {
+const getAccounts = ({ key, secret }) => {
+  if (key && secret) init(key, secret);
+
   return new Promise((resolve, reject) => {
-    client.getAccounts({}, (err, accts) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(map.accounts(accts));
-      }
-    });
+    getCurrentUser({ key, secret })
+      .then(user => {
+        client.getAccounts({}, (err2, accts) => {
+          if (err2) {
+            reject(err2);
+          } else {
+            resolve(map.accounts(accts, user));
+          }
+        });
+      })
   });
 };
 
 module.exports = {
   init,
+  getCurrentUser,
   getAccounts,
 };
