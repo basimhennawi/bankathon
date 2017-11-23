@@ -1,21 +1,23 @@
 import resource from 'resource-router-middleware';
 import response from './response';
-import accounts from '../repositories/accounts';
+import transactions from '../repositories/transactions';
 
 export default ({ config, db }) => resource({
 
-  /** POST / - List all accounts */
+  /** POST / - List all transactions */
   create({ body }, res, next) {
-    const key = body.loginId;
+    const key = body.credentialId;
     const secret = body.pin;
+    const accountId = body.accounts[0].acctNo;
 
     // Set the credential to response to be saved on FAPI
     // and be used in the followin requests from FAPI to BAPI
     res.credential = key;
 
-    accounts.all({
+    transactions.all({
       key,
       secret,
+      accountId,
     })
     .then((accounts) => response(res, { accounts }))
     .catch(next);

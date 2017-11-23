@@ -4,6 +4,10 @@ const Client = coinbase.Client;
 const map = require('../map');
 var client;
 
+const errorMessage = {
+  MISSING_API_KEY_AND_SECRET: 'Missing coinbase API key and secret.',
+}
+
 /** Initialize client object 
  * @method init
  */
@@ -20,9 +24,12 @@ const init = (key, secret) => {
  * @return {Promise} - User data
  */
 const getCurrentUser = ({ key, secret }) => {
-  if (key && secret) init(key, secret);
-
   return new Promise((resolve, reject) => {
+    if (key && secret) {
+      init(key, secret);
+    } else {
+      reject(new Error(errorMessage.MISSING_API_KEY_AND_SECRET));
+    }
     client.getCurrentUser((err, user) => {
       if (err) {
         reject(err);
@@ -39,10 +46,12 @@ const getCurrentUser = ({ key, secret }) => {
  * @return {Promise} - Array of accounts
  */
 const getAccounts = ({ key, secret }) => {
-  console.log(key, secret);
-  if (key && secret) init(key, secret);
-
   return new Promise((resolve, reject) => {
+    if (key && secret) {
+      init(key, secret);
+    } else {
+      reject(new Error(errorMessage.MISSING_API_KEY_AND_SECRET));
+    }
     getCurrentUser({ key, secret })
       .then(user => {
         client.getAccounts({}, (err2, accts) => {
@@ -56,8 +65,36 @@ const getAccounts = ({ key, secret }) => {
   });
 };
 
+/**
+ * Listing current transactions
+ * @method getTransactions
+ * @return {Promise} - Array of transactions
+ */
+const getTransactions = ({ key, secret, accountId }) => {
+  return new Promise((resolve, reject) => {
+    if (key && secret) {
+      init(key, secret);
+    } else {
+      reject(new Error(errorMessage.MISSING_API_KEY_AND_SECRET));
+    }
+    getCurrentUser({ key, secret })
+      .then(user => {
+        client.getAccount(accountId, function(err, account) {
+          account.getTransactions(null, (err2, txns) => {
+            if (err2) {
+              reject(err2);
+            } else {
+              resolve(map.transactions(txns, account, user));
+            }
+          });
+        });
+      });
+  });
+};
+
 module.exports = {
   init,
   getCurrentUser,
   getAccounts,
+  getTransactions,
 };

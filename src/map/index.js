@@ -32,6 +32,28 @@ const accounts = (accts, user) => {
       holderName: user ? user.name : '',
       isPortfolio: false,
       onlyAllowedSegTypes: false,
+      statement: [],
+    });
+  });
+  
+  return mappedAccounts;
+};
+
+/**
+ * Map coinbase transactions to BAPI transactions
+ * @method transactions
+ * @return {Promise} - Array of BAPI-valid-schemed account with transactions
+ */
+const transactions = (txns, account, user) => {
+  var mappedAccounts = accounts([account], user);
+
+  txns.forEach(tx => {
+    mappedAccounts[0].statement.push({
+      amount: tx.amount.amount,
+      currency: tx.amount.currency,
+      entryDate: tx.created_at,
+      valueDate: tx.created_at,
+      paymtPurpose: [tx.description, tx.details.title, tx.details.subtitle].join(':'),
     });
   });
   
@@ -40,4 +62,5 @@ const accounts = (accts, user) => {
 
 module.exports = {
     accounts,
+    transactions,
 }

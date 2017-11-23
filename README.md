@@ -25,7 +25,13 @@ PORT=8080 npm run dev
 # Start production server:
 PORT=8080 npm start
 ```
-- To be hosted on Heroku (soon)
+- On Heroku server: 
+
+You can consume the following endpoints via https://bankathon.herokuapp.com
+
+* /version
+* /register
+* /updateStatement
 
 Docker Support
 ------
