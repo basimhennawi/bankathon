@@ -39,6 +39,7 @@ const getCurrentUser = ({ key, secret }) => {
  * @return {Promise} - Array of accounts
  */
 const getAccounts = ({ key, secret }) => {
+  console.log(key, secret);
   if (key && secret) init(key, secret);
 
   return new Promise((resolve, reject) => {

@@ -16,8 +16,8 @@ export default ({ config, db }) => resource({
   /** POST / - List all accounts */
   create({ body }, res, next) {
     accounts.all({
-      key: body.customId,
-      secret: body.customId2,
+      key: body.loginId,
+      secret: body.pin,
     })
     .then((accounts) => response(res, { accounts }))
     .catch(next);

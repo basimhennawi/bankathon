@@ -17,9 +17,6 @@ if (fs.existsSync(resolve(process.cwd(), '.env'))) {
   dotenv.config();
 }
 
-// Initialize coinbase object
-initCoinbase();
-
 let app = express();
 app.server = http.createServer(app);
 
