@@ -8,7 +8,7 @@ export default ({ config, db }) => resource({
   create({ body }, res, next) {
     const key = body.credentialId;
     const secret = body.pin;
-    const accountId = body.accounts[0].acctNo;
+    const accountIds = body.accounts.map(acc => acc.acctNo);
 
     // Set the credential to response to be saved on FAPI
     // and be used in the followin requests from FAPI to BAPI
@@ -17,7 +17,7 @@ export default ({ config, db }) => resource({
     transactions.all({
       key,
       secret,
-      accountId,
+      accountIds,
     })
     .then((accounts) => response(res, { accounts }))
     .catch(next);

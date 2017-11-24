@@ -70,7 +70,7 @@ const getAccounts = ({ key, secret }) => {
  * @method getTransactions
  * @return {Promise} - Array of transactions
  */
-const getTransactions = ({ key, secret, accountId }) => {
+const getTransactions = ({ key, secret, accountIds }) => {
   return new Promise((resolve, reject) => {
     if (key && secret) {
       init(key, secret);
@@ -79,7 +79,9 @@ const getTransactions = ({ key, secret, accountId }) => {
     }
     getCurrentUser({ key, secret })
       .then(user => {
-        client.getAccount(accountId, function(err, account) {
+        // @todo: All accountIds should be used here for
+        // real use case instead we use only the first account
+        client.getAccount(accountIds[0], function(err, account) {
           account.getTransactions(null, (err2, txns) => {
             if (err2) {
               reject(err2);
